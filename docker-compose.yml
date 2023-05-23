@@ -7,7 +7,7 @@ services:
     build:
       args:
         user: ${ARGS_USER}
-        uid: ${ARGS_PASSWORD}
+        uid: ${ARGS_UID}
       context: .
       dockerfile: Dockerfile
     restart: unless-stopped

@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip
 
-# Limpando o cache dos arquivos baixados do npm
+# Limpando o cache dos arquivos baixados do apt
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Habilitando as extensoes do php que o laravel pede
