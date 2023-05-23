@@ -13,7 +13,7 @@ Clone o repositório original do Laravel:
 git clone https://github.com/laravel/laravel.git meu-projeto
 ```
 
-Copie todos os arquivos do repositório para o repositório do Laravel
+Copie todos os arquivos do repositório para o repositório do Laravel:
 ```sh
 cp -rf setup-padrao-laravel-docker/* meu-projeto/
 ```
@@ -21,12 +21,12 @@ cp -rf setup-padrao-laravel-docker/* meu-projeto/
 cd meu-projeto/
 ```
 
-Crie o Arquivo .env
+Crie o Arquivo .env:
 ```sh
 cp .env.example .env
 ```
 
-Atualize as variáveis de ambiente do arquivo .env
+Atualize as variáveis de ambiente do arquivo .env:
 ```dosini
 DB_CONNECTION=mysql
 DB_HOST=mysql #nome do container do seu banco de dados criado no docker-compose.yml.(O meu por padrão deixei mysql)
@@ -46,23 +46,40 @@ REDIS_HOST=redis #nome do container do seu sistema de cache no docker-compose.ym
 REDIS_PASSWORD=null
 REDIS_PORT=6379
 ```
+# Opcionais
 
-Suba os containers do projeto
+### Adicionando phpmyadmin para ambiente dev:
+
+No arquivo docker-compose.yml:
+```dosini
+phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - '8080:80'
+    environment:
+      PMA_HOST: mysql #nome do container do seu banco de dados
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - laravel
+```
+# Subindo o projeto
+
+Suba os containers do projeto:
 ```sh
 docker-compose up -d
 ```
 
-Acessar o container
+Acessar o container:
 ```sh
 docker-compose exec app bash
 ```
 
-Instalar as dependências do projeto
+Instalar as dependências do projeto:
 ```sh
 composer install
 ```
 
-Gerar a key do projeto Laravel
+Gerar a key do projeto Laravel:
 ```sh
 php artisan key:generate
 ```
