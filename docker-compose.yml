@@ -1,0 +1,55 @@
+version: "3.7"
+
+services:
+  #Container principal
+  app:
+    #Utilizando uma imagem especifica para funcionar perfeitamente apenas com o necessário
+    build:
+      args:
+        user: ${ARGS_USER}
+        uid: ${ARGS_PASSWORD}
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    depends_on:
+      - redis
+    networks:
+      - laravel
+  #Servidor web - Nginx
+  nginx:
+    image: nginx:alpine
+    restart: unless-stopped
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/:/etc/nginx/conf.d/
+    networks:
+      - laravel
+
+  #Banco de dados - Mysql
+  mysql:
+    image: mysql:5.7.22
+    restart: unless-stopped
+    volumes:
+      - ./.docker/mysql:/var/lib/mysql
+    environment:
+      #Documentacao oficial do mysql no docker hub
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+
+  #Cache - redis
+  redis:
+    image: redis:latest
+    networks:
+      - laravel
+
+networks:
+  laravel:
+    driver: bridge
