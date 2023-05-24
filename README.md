@@ -36,7 +36,7 @@ DB_USERNAME=root
 DB_PASSWORD=root
 
 ARGS_USER=teste #nome do super usuário criado dentro do container customizado app no docker-compose.yml
-ARGS_PASSWORD=teste #senha do super usuário criado dentro do container customizado app no docker-compose.yml
+ARGS_UID=1000 #Uid padrão dos argumentos enviados para o container customizado app
 
 CACHE_DRIVER=redis
 QUEUE_CONNECTION=redis
