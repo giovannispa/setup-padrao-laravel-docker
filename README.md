@@ -52,13 +52,15 @@ REDIS_PORT=6379
 
 No arquivo docker-compose.yml:
 ```dosini
-phpmyadmin:
+  phpmyadmin:
     image: phpmyadmin/phpmyadmin
     ports:
-      - '8080:80'
+      - 8080:80
     environment:
-      PMA_HOST: mysql #nome do container do seu banco de dados
+      PMA_HOST: mysql #nome do container do banco de dados
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    depends_on:
+        - mysql #nome do container do banco de dados
     networks:
       - laravel
 ```
