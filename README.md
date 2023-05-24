@@ -21,6 +21,11 @@ cp -rf setup-padrao-laravel-docker/* meu-projeto/
 cd meu-projeto/
 ```
 
+Remova o repositório padrão do git da pasta do seu projeto:
+```sh
+rm -rf .git
+```
+
 Crie o Arquivo .env:
 ```sh
 cp .env.example .env
